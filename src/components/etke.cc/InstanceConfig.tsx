@@ -25,13 +25,13 @@ let instanceConfig: InstanceConfig = {
   disabled: {},
 };
 
-export const FetchInstanceConfig = async (etkeccAdminUrl: string | undefined) => {
-  if (!etkeccAdminUrl || etkeccAdminUrl === "") {
+export const FetchInstanceConfig = async (palpoAdminUrl: string | undefined) => {
+  if (!palpoAdminUrl || palpoAdminUrl === "") {
     return;
   }
 
   try {
-    const resp = await fetch(`${etkeccAdminUrl}/config`);
+    const resp = await fetch(`${palpoAdminUrl}/config`);
     if (resp.status === 200) {
       const configJSON = (await resp.json()) as InstanceConfig;
       instanceConfig = configJSON;
@@ -43,7 +43,7 @@ export const FetchInstanceConfig = async (etkeccAdminUrl: string | undefined) =>
       case 204:
         return;
       case 429:
-        setTimeout(() => FetchInstanceConfig(etkeccAdminUrl), 1000);
+        setTimeout(() => FetchInstanceConfig(palpoAdminUrl), 1000);
         return;
     }
     console.error(`Error fetching instance config: ${resp.status} ${resp.statusText}`);

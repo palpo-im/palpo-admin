@@ -66,14 +66,14 @@ const useServerStatus = () => {
     maintenance: false,
   });
   const { command } = serverProcess;
-  const { etkeccAdmin } = useAppContext();
+  const { palpoAdmin } = useAppContext();
   const dataProvider = useDataProvider();
   const isOkay = serverStatus.ok;
   const successCheck = serverStatus.success;
   const maintenance = serverStatus.maintenance;
 
   const checkServerStatus = async () => {
-    const serverStatus: ServerStatusResponse = await dataProvider.getServerStatus(etkeccAdmin, command !== "");
+    const serverStatus: ServerStatusResponse = await dataProvider.getServerStatus(palpoAdmin, command !== "");
     setServerStatus({
       ok: serverStatus.ok,
       maintenance: serverStatus.maintenance,
@@ -87,7 +87,7 @@ const useServerStatus = () => {
     let serverStatusInterval: NodeJS.Timeout | null = null;
     let timeoutId: NodeJS.Timeout | null = null;
 
-    if (etkeccAdmin) {
+    if (palpoAdmin) {
       checkServerStatus();
       timeoutId = setTimeout(() => {
         // start the interval after 10 seconds to avoid too many requests
@@ -105,7 +105,7 @@ const useServerStatus = () => {
         clearInterval(serverStatusInterval);
       }
     };
-  }, [etkeccAdmin, command]);
+  }, [palpoAdmin, command]);
 
   return { isOkay, successCheck, maintenance };
 };
@@ -116,13 +116,13 @@ const useCurrentServerProcess = () => {
     locked_at: "",
     maintenance: false,
   });
-  const { etkeccAdmin } = useAppContext();
+  const { palpoAdmin } = useAppContext();
   const dataProvider = useDataProvider();
   const { command, locked_at, maintenance } = serverProcess;
 
   const checkServerRunningProcess = async () => {
     const serverProcess: ServerProcessResponse = await dataProvider.getServerRunningProcess(
-      etkeccAdmin,
+      palpoAdmin,
       command !== ""
     );
     setServerProcess({
@@ -137,7 +137,7 @@ const useCurrentServerProcess = () => {
     let serverCheckInterval: NodeJS.Timeout | null = null;
     let timeoutId: NodeJS.Timeout | null = null;
 
-    if (etkeccAdmin) {
+    if (palpoAdmin) {
       checkServerRunningProcess();
       timeoutId = setTimeout(() => {
         serverCheckInterval = setInterval(checkServerRunningProcess, SERVER_CURRENT_PROCCESS_INTERVAL_TIME);
@@ -154,7 +154,7 @@ const useCurrentServerProcess = () => {
         clearInterval(serverCheckInterval);
       }
     };
-  }, [etkeccAdmin, command]);
+  }, [palpoAdmin, command]);
 
   return { command, locked_at, maintenance };
 };

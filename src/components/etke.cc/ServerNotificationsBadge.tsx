@@ -40,13 +40,13 @@ const useServerNotifications = () => {
   });
   const { command, locked_at } = serverProcess;
 
-  const { etkeccAdmin } = useAppContext();
+  const { palpoAdmin } = useAppContext();
   const dataProvider = useDataProvider();
   const { notifications, success } = serverNotifications;
 
   const fetchNotifications = async () => {
     const notificationsResponse: ServerNotificationsResponse = await dataProvider.getServerNotifications(
-      etkeccAdmin,
+      palpoAdmin,
       command !== ""
     );
     const serverNotifications = [...notificationsResponse.notifications];
@@ -59,7 +59,7 @@ const useServerNotifications = () => {
   };
 
   const deleteServerNotifications = async () => {
-    const deleteResponse = await dataProvider.deleteServerNotifications(etkeccAdmin);
+    const deleteResponse = await dataProvider.deleteServerNotifications(palpoAdmin);
     if (deleteResponse.success) {
       setServerNotifications({
         notifications: [],
@@ -72,7 +72,7 @@ const useServerNotifications = () => {
     let serverNotificationsInterval: NodeJS.Timeout | null = null;
     let timeoutId: NodeJS.Timeout | null = null;
 
-    if (etkeccAdmin) {
+    if (palpoAdmin) {
       fetchNotifications();
       timeoutId = setTimeout(() => {
         // start the interval after the SERVER_NOTIFICATIONS_INTERVAL_TIME to avoid too many requests
@@ -88,7 +88,7 @@ const useServerNotifications = () => {
         clearInterval(serverNotificationsInterval);
       }
     };
-  }, [etkeccAdmin, command, locked_at]);
+  }, [palpoAdmin, command, locked_at]);
 
   return { success, notifications, deleteServerNotifications };
 };

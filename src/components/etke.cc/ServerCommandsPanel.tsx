@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 import { Button, Loading, useDataProvider, useCreatePath, useStore } from "react-admin";
 import { Link as RouterLink } from "react-router-dom";
 
-import { EtkeAttribution } from "./EtkeAttribution";
+import { PalpoAttribution } from "./PalpoAttribution";
 import { useAppContext } from "../../Context";
 import { useServerCommands } from "./hooks/useServerCommands";
 import { ServerCommand, ServerProcessResponse } from "../../synapse/dataProvider";
@@ -32,8 +32,8 @@ const renderIcon = (icon: string) => {
 };
 
 const ServerCommandsPanel = () => {
-  const { etkeccAdmin } = useAppContext();
-  if (!etkeccAdmin) {
+  const { palpoAdmin } = useAppContext();
+  if (!palpoAdmin) {
     return null;
   }
 
@@ -68,7 +68,7 @@ const ServerCommandsPanel = () => {
       const additionalArgs = serverCommands[command].additionalArgs || "";
       const requestParams = additionalArgs ? { args: additionalArgs } : {};
 
-      const response = await dataProvider.runServerCommand(etkeccAdmin, command, requestParams);
+      const response = await dataProvider.runServerCommand(palpoAdmin, command, requestParams);
 
       if (response.maintenance) {
         setCommandIsRunning(false);
@@ -129,7 +129,7 @@ const ServerCommandsPanel = () => {
 
   const updateServerProcessStatus = async (command: ServerCommand) => {
     const commandIsLocking = command.with_lock;
-    const serverProcess = await dataProvider.getServerRunningProcess(etkeccAdmin, true);
+    const serverProcess = await dataProvider.getServerRunningProcess(palpoAdmin, true);
     if (!commandIsLocking && serverProcess.command === "") {
       // if command is not locking, we simulate the "lock" mechanism so notifications will be refetched
       serverProcess["command"] = command.name;
@@ -160,15 +160,11 @@ const ServerCommandsPanel = () => {
       <Typography variant="h5">
         <Construction sx={{ verticalAlign: "middle", mr: 1 }} /> Available Commands
       </Typography>
-      <EtkeAttribution>
+      <PalpoAttribution>
         <Typography variant="body1" sx={{ mt: 0 }}>
-          The following commands are available to run. More details about each of them can be found{" "}
-          <Link href="https://etke.cc/help/extras/scheduler/#commands" target="_blank">
-            here
-          </Link>
-          .
+          The following commands are available to run. More details about each of them can be found in the documentation.
         </Typography>
-      </EtkeAttribution>
+      </PalpoAttribution>
       <TableContainer component={Paper} sx={{ mt: 2 }}>
         <Table sx={{ minWidth: { xs: 100, md: 450 } }} size="small" aria-label="simple table">
           <TableHead>
@@ -189,9 +185,7 @@ const ServerCommandsPanel = () => {
                   </Box>
                 </TableCell>
                 <TableCell sx={{ display: { xs: "none", md: "table-cell" } }}>
-                  <Link href={"https://etke.cc/help/extras/scheduler/#" + command} target="_blank">
-                    <Button size="small" startIcon={<HelpCenter />} title={command + " help"} />
-                  </Link>
+                  <Button size="small" startIcon={<HelpCenter />} title={command + " help"} />
                 </TableCell>
                 <TableCell sx={{ display: { xs: "none", md: "table-cell" } }}>{description}</TableCell>
                 <TableCell sx={{ display: { xs: "table-cell", md: "table-cell" } }}>

@@ -21,7 +21,7 @@ import IconButton from "@mui/material/IconButton";
 import { useState, useEffect } from "react";
 import { useDataProvider, useLocale, useNotify } from "react-admin";
 
-import { EtkeAttribution } from "./EtkeAttribution";
+import { PalpoAttribution } from "./PalpoAttribution";
 import { useAppContext } from "../../Context";
 import { SynapseDataProvider, Payment } from "../../synapse/dataProvider";
 
@@ -42,7 +42,7 @@ const TruncatedUUID = ({ uuid }): React.ReactElement => {
 };
 
 const BillingPage = () => {
-  const { etkeccAdmin } = useAppContext();
+  const { palpoAdmin } = useAppContext();
   const dataProvider = useDataProvider() as SynapseDataProvider;
   const notify = useNotify();
   const locale = useLocale();
@@ -54,11 +54,11 @@ const BillingPage = () => {
 
   useEffect(() => {
     const fetchBillingData = async () => {
-      if (!etkeccAdmin) return;
+      if (!palpoAdmin) return;
 
       try {
         setLoading(true);
-        const response = await dataProvider.getPayments(etkeccAdmin);
+        const response = await dataProvider.getPayments(palpoAdmin);
         setPaymentsData(response.payments);
         setMaintenance(response.maintenance);
       } catch (error) {
@@ -70,14 +70,14 @@ const BillingPage = () => {
     };
 
     fetchBillingData();
-  }, [etkeccAdmin, dataProvider, notify]);
+  }, [palpoAdmin, dataProvider, notify]);
 
   const handleInvoiceDownload = async (transactionId: string) => {
-    if (!etkeccAdmin || downloadingInvoice) return;
+    if (!palpoAdmin || downloadingInvoice) return;
 
     try {
       setDownloadingInvoice(transactionId);
-      await dataProvider.getInvoice(etkeccAdmin, transactionId);
+      await dataProvider.getInvoice(palpoAdmin, transactionId);
       notify("Invoice download started", { type: "info" });
     } catch (error) {
       // Use the specific error message from the dataProvider
@@ -95,21 +95,13 @@ const BillingPage = () => {
         <PaymentIcon sx={{ verticalAlign: "middle", mr: 1 }} /> Billing
       </Typography>
       <Typography variant="body1">View payments and generate invoices from here.</Typography>
-      <EtkeAttribution>
+      <PalpoAttribution>
         <Typography variant="body1">
-          View payments and generate invoices from here. More details about billing can be found{" "}
-          <Link href="https://etke.cc/help/extras/scheduler/#payments" target="_blank">
-            here
-          </Link>
-          .
+          View payments and generate invoices from here. More details about billing can be found in the documentation.
           <br />
-          If you'd like to change your billing email, or add company details, please{" "}
-          <Link href="https://etke.cc/contacts/" target="_blank">
-            contact etke.cc support
-          </Link>
-          .
+          If you'd like to change your billing email, or add company details, please contact support.
         </Typography>
-      </EtkeAttribution>
+      </PalpoAttribution>
     </Box>
   );
 
@@ -135,15 +127,9 @@ const BillingPage = () => {
             This might be a temporary issue - please try again in a few minutes.
             <br />
           </Typography>
-          <EtkeAttribution>
-            <Typography>
-              If it persists, contact{" "}
-              <Link href="https://etke.cc/contacts/" target="_blank">
-                etke.cc support team
-              </Link>{" "}
-              with the following error message:
-            </Typography>
-          </EtkeAttribution>
+          <PalpoAttribution>
+            <Typography>If it persists, contact support with the following error message:</Typography>
+          </PalpoAttribution>
           <Typography variant="body2" color="error" sx={{ mt: 1 }}>
             {failure}
           </Typography>
@@ -179,15 +165,9 @@ const BillingPage = () => {
         {paymentsData.length === 0 ? (
           <Typography variant="body1">
             No payments found.
-            <EtkeAttribution>
-              <Typography>
-                If you believe that's an error, please{" "}
-                <Link href="https://etke.cc/contacts/" target="_blank">
-                  contact etke.cc support
-                </Link>
-                .
-              </Typography>
-            </EtkeAttribution>
+            <PalpoAttribution>
+              <Typography>If you believe that's an error, please contact support.</Typography>
+            </PalpoAttribution>
           </Typography>
         ) : (
           <TableContainer component={Paper}>

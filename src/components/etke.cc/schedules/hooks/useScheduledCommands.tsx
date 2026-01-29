@@ -4,11 +4,11 @@ import { useDataProvider } from "react-admin";
 import { useAppContext } from "../../../../Context";
 
 export const useScheduledCommands = () => {
-  const { etkeccAdmin } = useAppContext();
+  const { palpoAdmin } = useAppContext();
   const dataProvider = useDataProvider();
   const { data, isLoading, error } = useQuery({
     queryKey: ["scheduledCommands"],
-    queryFn: () => dataProvider.getScheduledCommands(etkeccAdmin),
+    queryFn: () => dataProvider.getScheduledCommands(palpoAdmin),
   });
 
   return { data, isLoading, error };

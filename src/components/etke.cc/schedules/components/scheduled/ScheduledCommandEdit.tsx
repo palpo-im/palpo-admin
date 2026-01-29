@@ -19,7 +19,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import ScheduleDeleteButton from "./ScheduledDeleteButton";
 import { useAppContext } from "../../../../../Context";
 import { ScheduledCommand } from "../../../../../synapse/dataProvider";
-import { EtkeAttribution } from "../../../EtkeAttribution";
+import { PalpoAttribution } from "../../../PalpoAttribution";
 import { useServerCommands } from "../../../hooks/useServerCommands";
 import { useScheduledCommands } from "../../hooks/useScheduledCommands";
 
@@ -46,7 +46,7 @@ const ScheduledCommandEdit = () => {
   const navigate = useNavigate();
   const notify = useNotify();
   const dataProvider = useDataProvider();
-  const { etkeccAdmin } = useAppContext();
+  const { palpoAdmin } = useAppContext();
   const [command, setCommand] = useState<ScheduledCommand | null>(null);
   const isCreating = typeof id === "undefined";
   const [loading, setLoading] = useState(!isCreating);
@@ -70,10 +70,10 @@ const ScheduledCommandEdit = () => {
     try {
       data.scheduled_at = new Date(data.scheduled_at).toISOString();
       if (isCreating) {
-        await dataProvider.createScheduledCommand(etkeccAdmin, data);
+        await dataProvider.createScheduledCommand(palpoAdmin, data);
         notify("scheduled_commands.action.create_success", { type: "success" });
       } else {
-        await dataProvider.updateScheduledCommand(etkeccAdmin, {
+        await dataProvider.updateScheduledCommand(palpoAdmin, {
           ...data,
           id: id,
         });
@@ -98,15 +98,11 @@ const ScheduledCommandEdit = () => {
       <Card>
         <CardHeader title={pageTitle} />
         {command && (
-          <EtkeAttribution>
+          <PalpoAttribution>
             <Typography variant="body1" sx={{ px: 2 }}>
-              You can find more details about the command{" "}
-              <Link href={`https://etke.cc/help/extras/scheduler/#${command.command}`} target="_blank">
-                here
-              </Link>
-              .
+              You can find more details about the command in the documentation.
             </Typography>
-          </EtkeAttribution>
+          </PalpoAttribution>
         )}
         <CardContent>
           <Form

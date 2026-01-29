@@ -33,7 +33,7 @@ const authProvider: AuthProvider = {
     // private address
     if (!base_url) {
       // there is some kind of bug with base_url being present in the form, but not submitted
-      // ref: https://github.com/etkecc/synapse-admin/issues/14
+      // ref: https://github.com/palpo-im/palpo-admin/issues/14
       localStorage.removeItem("base_url");
       throw new Error("Homeserver URL is required.");
     }
@@ -60,7 +60,7 @@ const authProvider: AuthProvider = {
 
     const config = GetConfig();
     const icfg = GetInstanceConfig();
-    let deviceName = "Synapse Admin";
+    let deviceName = "Palpo Admin";
     if (icfg.name) {
       deviceName = icfg.name;
     }
@@ -130,7 +130,7 @@ const authProvider: AuthProvider = {
       localStorage.setItem("login_type", accessToken ? "accessToken" : "credentials");
       let pageToRedirectTo = "/";
 
-      if (config.etkeccAdmin && icfg && !icfg.disabled.monitoring) {
+      if (config.palpoAdmin && icfg && !icfg.disabled.monitoring) {
         pageToRedirectTo = "/server_status";
       }
 
@@ -297,7 +297,7 @@ const authProvider: AuthProvider = {
         const cfg = GetConfig();
         const icfg = GetInstanceConfig();
         let pageToRedirectTo = "/";
-        if (cfg.etkeccAdmin && icfg && !icfg.disabled.monitoring) {
+        if (cfg.palpoAdmin && icfg && !icfg.disabled.monitoring) {
           pageToRedirectTo = "/server_status";
         }
 

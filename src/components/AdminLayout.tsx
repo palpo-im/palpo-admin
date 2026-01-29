@@ -21,7 +21,7 @@ import { LoginMethod } from "../pages/LoginPage";
 import { ServerProcessResponse, ServerStatusResponse } from "../synapse/dataProvider";
 import { MenuItem, GetConfig, ClearConfig } from "../utils/config";
 import { Icons, DefaultIcon } from "../utils/icons";
-import { EtkeAttribution } from "./etke.cc/EtkeAttribution";
+import { PalpoAttribution } from "./etke.cc/PalpoAttribution";
 import { GetInstanceConfig, ClearInstanceConfig } from "./etke.cc/InstanceConfig";
 import { ServerNotificationsBadge } from "./etke.cc/ServerNotificationsBadge";
 import ServerStatusBadge from "./etke.cc/ServerStatusBadge";
@@ -85,11 +85,11 @@ const AdminAppBar = () => {
 const AdminMenu = props => {
   const [menu, setMenu] = useState([] as MenuItem[]);
   const icfg = GetInstanceConfig();
-  const [etkeRoutesEnabled, setEtkeRoutesEnabled] = useState(false);
+  const [palpoRoutesEnabled, setPalpoRoutesEnabled] = useState(false);
   useEffect(() => {
     setMenu(GetConfig().menu);
-    if (GetConfig().etkeccAdmin) {
-      setEtkeRoutesEnabled(true);
+    if (GetConfig().palpoAdmin) {
+      setPalpoRoutesEnabled(true);
     }
   }, []);
   const [serverProcess, _setServerProcess] = useStore<ServerProcessResponse>("serverProcess", {
@@ -105,7 +105,7 @@ const AdminMenu = props => {
 
   return (
     <Menu {...props}>
-      {etkeRoutesEnabled && !icfg.disabled.monitoring && (
+      {palpoRoutesEnabled && !icfg.disabled.monitoring && (
         <Menu.Item
           key="server_status"
           to="/server_status"
@@ -121,7 +121,7 @@ const AdminMenu = props => {
           primaryText="Server Status"
         />
       )}
-      {etkeRoutesEnabled && !icfg.disabled.actions && (
+      {palpoRoutesEnabled && !icfg.disabled.actions && (
         <Menu.Item
           key="server_actions"
           to="/server_actions"
@@ -130,7 +130,7 @@ const AdminMenu = props => {
         />
       )}
       <Menu.ResourceItems />
-      {etkeRoutesEnabled && !icfg.disabled.payments && (
+      {palpoRoutesEnabled && !icfg.disabled.payments && (
         <Menu.Item key="billing" to="/billing" leftIcon={<PaymentIcon />} primaryText="Billing" />
       )}
       {menu &&
@@ -196,9 +196,9 @@ export const AdminLayout = ({ children }) => {
         {children}
         <CheckForApplicationUpdate />
       </Layout>
-      <EtkeAttribution>
+      <PalpoAttribution>
         <Footer />
-      </EtkeAttribution>
+      </PalpoAttribution>
     </>
   );
 };

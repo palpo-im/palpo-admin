@@ -7,7 +7,7 @@ import { AppContext } from "../Context";
 import englishMessages from "../i18n/en";
 
 const i18nProvider = polyglotI18nProvider(() => englishMessages, "en", [{ locale: "en", name: "English" }]);
-const welcomeText = englishMessages.synapseadmin.auth.welcome.replace("%{name}", "Synapse Admin");
+const welcomeText = englishMessages.synapseadmin.auth.welcome.replace("%{name}", "Palpo Admin");
 
 describe("LoginForm", () => {
   it("renders with no restriction to homeserver", async () => {

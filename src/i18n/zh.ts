@@ -41,7 +41,7 @@ const zh: SynapseTranslationMessages = {
     auth: {
       base_url: "服务器 URL",
       welcome: "欢迎来到 %{name}",
-      server_version: "Synapse 版本",
+      server_version: "Palpo 版本",
       username_error: "请输入完整有效的用户 ID: '@user:domain'",
       protocol_error: "URL 需要以'http://'或'https://'作为起始",
       url_error: "不是一个有效的 Matrix 服务器地址",

@@ -30,6 +30,6 @@ describe("App", () => {
   it("renders", async () => {
     render(<App />);
 
-    await screen.findAllByText("Welcome to Synapse Admin");
+    await screen.findAllByText("Welcome to Palpo Admin");
   });
 });

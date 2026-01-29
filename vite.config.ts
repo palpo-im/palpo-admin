@@ -1,3 +1,5 @@
+import path from "path";
+
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import { vitePluginVersionMark } from "vite-plugin-version-mark";
@@ -7,6 +9,17 @@ export default defineConfig({
   build: {
     target: "esnext",
     chunkSizeWarningLimit: 1500,
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, "index.html"),
+        new: path.resolve(__dirname, "index-new.html"),
+      },
+    },
+  },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
   },
   plugins: [
     react(),

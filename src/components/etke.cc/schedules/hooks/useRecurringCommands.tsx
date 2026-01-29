@@ -4,11 +4,11 @@ import { useDataProvider } from "react-admin";
 import { useAppContext } from "../../../../Context";
 
 export const useRecurringCommands = () => {
-  const { etkeccAdmin } = useAppContext();
+  const { palpoAdmin } = useAppContext();
   const dataProvider = useDataProvider();
   const { data, isLoading, error } = useQuery({
     queryKey: ["recurringCommands"],
-    queryFn: () => dataProvider.getRecurringCommands(etkeccAdmin),
+    queryFn: () => dataProvider.getRecurringCommands(palpoAdmin),
   });
 
   return { data, isLoading, error };

@@ -151,7 +151,7 @@ export const registerClient = async (registrationEndpoint: string, clientUrl: st
   }
 
   const icfg = GetInstanceConfig();
-  let clientName = "Synapse Admin";
+  let clientName = "Palpo Admin";
   let logoUri = `${clientUrl}/images/logo.webp`;
   if (icfg.name) {
     clientName = icfg.name;

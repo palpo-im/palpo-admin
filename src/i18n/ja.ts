@@ -19,7 +19,7 @@ const ja: SynapseTranslationMessages = {
     auth: {
       base_url: "ホームサーバーのURL",
       welcome: "%{name}にようこそ",
-      server_version: "Synapseのバージョン",
+      server_version: "Palpoのバージョン",
       supports_specs: "次のMatrixのスペックをサポートしています",
       username_error: "有効なユーザーIDを入力してください。形式は「@user:domain」です。",
       protocol_error: "URLの先頭には「http://」または「https://」を置いてください",
@@ -258,7 +258,7 @@ const ja: SynapseTranslationMessages = {
       },
       helper: {
         forward_extremities:
-          "転送末端（forward extremities）は、ルーム内の有向非巡回グラフ（DAG）の終端にあるイベント、つまり、子をもたないイベントのことをいいます。これが多ければ多いほど、Synapseが実行しなければならないステート解決（これは負荷の大きい作業です）の数も多くなります。Synapseには、ルーム内に存在する末端の数を減らす仕組みが備わっていますが、バグによりそれが機能しない場合があります。もしルームに10個以上の転送末端がある場合は、どのルームがそれを引き起こしているかを確認して #1760 で参照されているSQLクエリーで転送末端を削除することを検討してみてください。",
+          "転送末端（forward extremities）は、ルーム内の有向非巡回グラフ（DAG）の終端にあるイベント、つまり、子をもたないイベントのことをいいます。これが多ければ多いほど、Palpoが実行しなければならないステート解決（これは負荷の大きい作業です）の数も多くなります。Palpoには、ルーム内に存在する末端の数を減らす仕組みが備わっていますが、バグによりそれが機能しない場合があります。もしルームに10個以上の転送末端がある場合は、どのルームがそれを引き起こしているかを確認して #1760 で参照されているSQLクエリーで転送末端を削除することを検討してみてください。",
       },
       enums: {
         join_rules: {

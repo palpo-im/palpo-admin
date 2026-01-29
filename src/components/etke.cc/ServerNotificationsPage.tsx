@@ -17,7 +17,7 @@ const DisplayTime = ({ date, locale }: { date: string; locale: string }) => {
 
 const ServerNotificationsPage = () => {
   const locale = useLocale();
-  const { etkeccAdmin } = useAppContext();
+  const { palpoAdmin } = useAppContext();
   const [serverNotifications, setServerNotifications] = useStore<ServerNotificationsResponse>("serverNotifications", {
     notifications: [],
     success: false,
@@ -34,7 +34,7 @@ const ServerNotificationsPage = () => {
             variant="text"
             color="error"
             onClick={async () => {
-              await dataProvider.deleteServerNotifications(etkeccAdmin);
+              await dataProvider.deleteServerNotifications(palpoAdmin);
               setServerNotifications({
                 notifications: [],
                 success: true,

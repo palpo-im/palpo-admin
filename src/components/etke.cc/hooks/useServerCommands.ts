@@ -7,7 +7,7 @@ import { GetInstanceConfig } from "../InstanceConfig";
 
 export const useServerCommands = () => {
   const icfg = GetInstanceConfig();
-  const { etkeccAdmin } = useAppContext();
+  const { palpoAdmin } = useAppContext();
   const [isLoading, setLoading] = useState(true);
   const [maintenance, setMaintenance] = useState(false);
   const [serverCommands, setServerCommands] = useState<Record<string, ServerCommand>>({});
@@ -15,7 +15,7 @@ export const useServerCommands = () => {
 
   useEffect(() => {
     const fetchServerCommands = async () => {
-      const serverCommandsResponse = await dataProvider.getServerCommands(etkeccAdmin);
+      const serverCommandsResponse = await dataProvider.getServerCommands(palpoAdmin);
       if (serverCommandsResponse?.maintenance) {
         setMaintenance(true);
         setLoading(false);
@@ -37,7 +37,7 @@ export const useServerCommands = () => {
       setLoading(false);
     };
     fetchServerCommands();
-  }, [dataProvider, etkeccAdmin]);
+  }, [dataProvider, palpoAdmin]);
 
   return { isLoading, maintenance, serverCommands, setServerCommands };
 };

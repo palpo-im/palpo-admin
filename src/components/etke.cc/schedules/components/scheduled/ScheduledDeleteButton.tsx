@@ -10,7 +10,7 @@ import { ScheduledCommand } from "../../../../../synapse/dataProvider";
 
 const ScheduledDeleteButton = () => {
   const record = useRecordContext() as ScheduledCommand;
-  const { etkeccAdmin } = useAppContext();
+  const { palpoAdmin } = useAppContext();
   const dataProvider = useDataProvider();
   const notify = useNotify();
   const theme = useTheme();
@@ -26,7 +26,7 @@ const ScheduledDeleteButton = () => {
   const handleConfirm = async () => {
     setIsDeleting(true);
     try {
-      await dataProvider.deleteScheduledCommand(etkeccAdmin, record.id);
+      await dataProvider.deleteScheduledCommand(palpoAdmin, record.id);
       notify("scheduled_commands.action.delete_success", { type: "success" });
       navigate("/server_actions");
     } catch (error) {

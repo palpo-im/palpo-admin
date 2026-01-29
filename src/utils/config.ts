@@ -4,7 +4,7 @@ export interface Config {
   asManagedUsers: RegExp[] | string[];
   menu: MenuItem[];
   externalAuthProvider: boolean;
-  etkeccAdmin?: string;
+  palpoAdmin?: string;
 }
 
 export interface MenuItem {
@@ -13,7 +13,7 @@ export interface MenuItem {
   url: string;
 }
 
-export const WellKnownKey = "cc.etke.synapse-admin";
+export const WellKnownKey = "im.palpo.admin";
 
 // current configuration
 let config: Config = {
@@ -22,7 +22,7 @@ let config: Config = {
   asManagedUsers: [],
   menu: [],
   externalAuthProvider: false,
-  etkeccAdmin: "",
+  palpoAdmin: "",
 };
 
 export const FetchConfig = async () => {
@@ -125,8 +125,8 @@ export const LoadConfig = (context: Config) => {
     config.externalAuthProvider = context.externalAuthProvider;
   }
 
-  if (context?.etkeccAdmin) {
-    config.etkeccAdmin = context.etkeccAdmin;
+  if (context?.palpoAdmin) {
+    config.palpoAdmin = context.palpoAdmin;
   }
 };
 

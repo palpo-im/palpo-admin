@@ -4,7 +4,7 @@ import { Box, Typography, Link } from "@mui/material";
 import { Stack } from "@mui/material";
 
 import CurrentlyRunningCommand from "./CurrentlyRunningCommand";
-import { EtkeAttribution } from "./EtkeAttribution";
+import { PalpoAttribution } from "./PalpoAttribution";
 import ServerCommandsPanel from "./ServerCommandsPanel";
 import RecurringCommandsList from "./schedules/components/recurring/RecurringCommandsList";
 import ScheduledCommandsList from "./schedules/components/scheduled/ScheduledCommandsList";
@@ -22,15 +22,9 @@ const ServerActionsPage = () => (
       <Typography variant="body1">
         The following commands are scheduled to run at specific times. You can view their details and modify them as
         needed.
-        <EtkeAttribution>
-          <Typography>
-            More details about the mode can be found{" "}
-            <Link href="https://etke.cc/help/extras/scheduler/#schedule" target="_blank">
-              here
-            </Link>
-            .
-          </Typography>
-        </EtkeAttribution>
+        <PalpoAttribution>
+          <Typography>More details about the mode can be found in the documentation.</Typography>
+        </PalpoAttribution>
       </Typography>
       <ScheduledCommandsList />
     </Box>
@@ -42,15 +36,9 @@ const ServerActionsPage = () => (
       <Typography variant="body1">
         The following commands are set to run at specific weekday and time (weekly). You can view their details and
         modify them as needed.
-        <EtkeAttribution>
-          <Typography>
-            More details about the mode can be found{" "}
-            <Link href="https://etke.cc/help/extras/scheduler/#recurring" target="_blank">
-              here
-            </Link>
-            .
-          </Typography>
-        </EtkeAttribution>
+        <PalpoAttribution>
+          <Typography>More details about the mode can be found in the documentation.</Typography>
+        </PalpoAttribution>
       </Typography>
       <RecurringCommandsList />
     </Box>

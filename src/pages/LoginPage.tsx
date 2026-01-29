@@ -31,7 +31,7 @@ import { useFormContext } from "react-hook-form";
 import { useAppContext } from "../Context";
 import Footer from "../components/Footer";
 import LoginFormBox from "../components/LoginFormBox";
-import { EtkeAttribution } from "../components/etke.cc/EtkeAttribution";
+import { PalpoAttribution } from "../components/etke.cc/PalpoAttribution";
 import { GetInstanceConfig } from "../components/etke.cc/InstanceConfig";
 import {
   getServerVersion,
@@ -270,7 +270,7 @@ const LoginPage = () => {
   };
 
   const icfg = GetInstanceConfig();
-  let welcomeTo = "Synapse Admin";
+  let welcomeTo = "Palpo Admin";
   let logoUrl = "./images/logo.webp";
   let backgroundUrl = "./images/floating-cogs.svg";
   if (icfg.name) {
@@ -512,9 +512,9 @@ const LoginPage = () => {
         </Card>
       </LoginFormBox>
       <Notification />
-      <EtkeAttribution>
+      <PalpoAttribution>
         <Footer />
-      </EtkeAttribution>
+      </PalpoAttribution>
     </Form>
   );
 };

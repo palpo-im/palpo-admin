@@ -7,7 +7,7 @@ import { FetchInstanceConfig } from "./components/etke.cc/InstanceConfig";
 import { FetchConfig, GetConfig } from "./utils/config";
 
 await FetchConfig();
-await FetchInstanceConfig(GetConfig().etkeccAdmin);
+await FetchInstanceConfig(GetConfig().palpoAdmin);
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>

@@ -104,7 +104,7 @@ export const App = () => {
   }
 
   const icfg = GetInstanceConfig();
-  let title = "Synapse Admin";
+  let title = "Palpo Admin";
   if (icfg.name) {
     title = icfg.name;
   }

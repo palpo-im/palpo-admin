@@ -19,7 +19,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import RecurringDeleteButton from "./RecurringDeleteButton";
 import { useAppContext } from "../../../../../Context";
 import { RecurringCommand } from "../../../../../synapse/dataProvider";
-import { EtkeAttribution } from "../../../EtkeAttribution";
+import { PalpoAttribution } from "../../../PalpoAttribution";
 import { useServerCommands } from "../../../hooks/useServerCommands";
 import { useRecurringCommands } from "../../hooks/useRecurringCommands";
 
@@ -47,7 +47,7 @@ const RecurringCommandEdit = () => {
   const notify = useNotify();
   const dataProvider = useDataProvider();
   const queryClient = useQueryClient();
-  const { etkeccAdmin } = useAppContext();
+  const { palpoAdmin } = useAppContext();
   const [command, setCommand] = useState<RecurringCommand | undefined>(undefined);
   const isCreating = typeof id === "undefined";
   const [loading, setLoading] = useState(!isCreating);
@@ -114,10 +114,10 @@ const RecurringCommandEdit = () => {
       }
 
       if (isCreating) {
-        await dataProvider.createRecurringCommand(etkeccAdmin, submissionData);
+        await dataProvider.createRecurringCommand(palpoAdmin, submissionData);
         notify("recurring_commands.action.create_success", { type: "success" });
       } else {
-        await dataProvider.updateRecurringCommand(etkeccAdmin, {
+        await dataProvider.updateRecurringCommand(palpoAdmin, {
           ...submissionData,
           id: id,
         });
@@ -146,17 +146,13 @@ const RecurringCommandEdit = () => {
         <CardHeader title={pageTitle} />
         <CardContent>
           {command && (
-            <EtkeAttribution>
+            <PalpoAttribution>
               <Alert severity="info">
                 <Typography variant="body1" sx={{ px: 2 }}>
-                  You can find more details about the command{" "}
-                  <Link href={`https://etke.cc/help/extras/scheduler/#${command.command}`} target="_blank">
-                    here
-                  </Link>
-                  .
+                  You can find more details about the command in the documentation.
                 </Typography>
               </Alert>
-            </EtkeAttribution>
+            </PalpoAttribution>
           )}
           <Form
             defaultValues={command || undefined}

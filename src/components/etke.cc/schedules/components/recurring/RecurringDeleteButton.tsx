@@ -10,7 +10,7 @@ import { RecurringCommand } from "../../../../../synapse/dataProvider";
 
 const RecurringDeleteButton = () => {
   const record = useRecordContext() as RecurringCommand;
-  const { etkeccAdmin } = useAppContext();
+  const { palpoAdmin } = useAppContext();
   const dataProvider = useDataProvider();
   const notify = useNotify();
   const theme = useTheme();
@@ -26,7 +26,7 @@ const RecurringDeleteButton = () => {
   const handleConfirm = async () => {
     setIsDeleting(true);
     try {
-      await dataProvider.deleteRecurringCommand(etkeccAdmin, record.id);
+      await dataProvider.deleteRecurringCommand(palpoAdmin, record.id);
       notify("recurring_commands.action.delete_success", { type: "success" });
       navigate("/server_actions");
     } catch (error) {

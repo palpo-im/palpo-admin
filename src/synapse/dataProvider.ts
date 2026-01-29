@@ -386,21 +386,21 @@ export interface SynapseDataProvider extends DataProvider {
     suspendValue: boolean
   ) => Promise<{ success: boolean; error?: string; errcode?: string }>;
   eraseUser: (id: Identifier) => Promise<{ success: boolean; error?: string; errcode?: string }>;
-  getServerRunningProcess: (etkeAdminUrl: string) => Promise<ServerProcessResponse>;
-  getServerStatus: (etkeAdminUrl: string) => Promise<ServerStatusResponse>;
-  getServerNotifications: (etkeAdminUrl: string) => Promise<ServerNotificationsResponse>;
-  deleteServerNotifications: (etkeAdminUrl: string) => Promise<{ success: boolean }>;
-  getServerCommands: (etkeAdminUrl: string) => Promise<{ maintenance: boolean; commands: ServerCommandsResponse[] }>;
-  getScheduledCommands: (etkeAdminUrl: string) => Promise<ScheduledCommand[]>;
-  getRecurringCommands: (etkeAdminUrl: string) => Promise<RecurringCommand[]>;
-  createScheduledCommand: (etkeAdminUrl: string, command: Partial<ScheduledCommand>) => Promise<ScheduledCommand>;
-  updateScheduledCommand: (etkeAdminUrl: string, command: ScheduledCommand) => Promise<ScheduledCommand>;
-  deleteScheduledCommand: (etkeAdminUrl: string, id: string) => Promise<{ success: boolean }>;
-  createRecurringCommand: (etkeAdminUrl: string, command: Partial<RecurringCommand>) => Promise<RecurringCommand>;
-  updateRecurringCommand: (etkeAdminUrl: string, command: RecurringCommand) => Promise<RecurringCommand>;
-  deleteRecurringCommand: (etkeAdminUrl: string, id: string) => Promise<{ success: boolean }>;
-  getPayments: (etkeAdminUrl: string) => Promise<PaymentsResponse>;
-  getInvoice: (etkeAdminUrl: string, transactionId: string) => Promise<void>;
+  getServerRunningProcess: (palpoAdminUrl: string) => Promise<ServerProcessResponse>;
+  getServerStatus: (palpoAdminUrl: string) => Promise<ServerStatusResponse>;
+  getServerNotifications: (palpoAdminUrl: string) => Promise<ServerNotificationsResponse>;
+  deleteServerNotifications: (palpoAdminUrl: string) => Promise<{ success: boolean }>;
+  getServerCommands: (palpoAdminUrl: string) => Promise<{ maintenance: boolean; commands: ServerCommandsResponse[] }>;
+  getScheduledCommands: (palpoAdminUrl: string) => Promise<ScheduledCommand[]>;
+  getRecurringCommands: (palpoAdminUrl: string) => Promise<RecurringCommand[]>;
+  createScheduledCommand: (palpoAdminUrl: string, command: Partial<ScheduledCommand>) => Promise<ScheduledCommand>;
+  updateScheduledCommand: (palpoAdminUrl: string, command: ScheduledCommand) => Promise<ScheduledCommand>;
+  deleteScheduledCommand: (palpoAdminUrl: string, id: string) => Promise<{ success: boolean }>;
+  createRecurringCommand: (palpoAdminUrl: string, command: Partial<RecurringCommand>) => Promise<RecurringCommand>;
+  updateRecurringCommand: (palpoAdminUrl: string, command: RecurringCommand) => Promise<RecurringCommand>;
+  deleteRecurringCommand: (palpoAdminUrl: string, id: string) => Promise<{ success: boolean }>;
+  getPayments: (palpoAdminUrl: string) => Promise<PaymentsResponse>;
+  getInvoice: (palpoAdminUrl: string, transactionId: string) => Promise<void>;
 }
 
 const resourceMap = {
@@ -1135,11 +1135,11 @@ const baseDataProvider: SynapseDataProvider = {
       throw error;
     }
   },
-  getServerRunningProcess: async (etkeAdminUrl: string, burstCache = false): Promise<ServerProcessResponse> => {
+  getServerRunningProcess: async (palpoAdminUrl: string, burstCache = false): Promise<ServerProcessResponse> => {
     const locked_at = "";
     const command = "";
 
-    let serverURL = `${etkeAdminUrl}/lock`;
+    let serverURL = `${palpoAdminUrl}/lock`;
     if (burstCache) {
       serverURL += `?time=${new Date().getTime()}`;
     }
@@ -1174,8 +1174,8 @@ const baseDataProvider: SynapseDataProvider = {
 
     return { locked_at, command, maintenance: false };
   },
-  getServerStatus: async (etkeAdminUrl: string, burstCache = false): Promise<ServerStatusResponse> => {
-    let serverURL = `${etkeAdminUrl}/status`;
+  getServerStatus: async (palpoAdminUrl: string, burstCache = false): Promise<ServerStatusResponse> => {
+    let serverURL = `${palpoAdminUrl}/status`;
     if (burstCache) {
       serverURL += `?time=${new Date().getTime()}`;
     }
@@ -1563,8 +1563,8 @@ const baseDataProvider: SynapseDataProvider = {
       return { success: false };
     }
   },
-  getPayments: async (etkeAdminUrl: string) => {
-    const response = await fetch(`${etkeAdminUrl}/payments`, {
+  getPayments: async (palpoAdminUrl: string) => {
+    const response = await fetch(`${palpoAdminUrl}/payments`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`,
       },
@@ -1591,9 +1591,9 @@ const baseDataProvider: SynapseDataProvider = {
 
     throw new Error(`${response.status} ${response.statusText}`); // Handle unexpected status codes
   },
-  getInvoice: async (etkeAdminUrl: string, transactionId: string) => {
+  getInvoice: async (palpoAdminUrl: string, transactionId: string) => {
     try {
-      const response = await fetch(`${etkeAdminUrl}/payments/${transactionId}/invoice`, {
+      const response = await fetch(`${palpoAdminUrl}/payments/${transactionId}/invoice`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
